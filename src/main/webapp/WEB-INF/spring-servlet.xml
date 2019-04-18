@@ -9,6 +9,10 @@
     <!--  启动注解驱动的 Spring mvc 功能  -->
     <mvc:annotation-driven/>
 
+    <mvc:interceptors>
+        <bean class="io.github.futurewl.imooc.java.authority.management.common.HttpInterceptor"/>
+    </mvc:interceptors>
+
     <!-- 启动包扫描功能 -->
     <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.controller"/>
     <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.service"/>
