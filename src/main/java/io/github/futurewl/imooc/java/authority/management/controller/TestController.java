@@ -1,9 +1,13 @@
 package io.github.futurewl.imooc.java.authority.management.controller;
 
+import io.github.futurewl.imooc.java.authority.management.common.ApplicationContextHelper;
 import io.github.futurewl.imooc.java.authority.management.common.JsonData;
+import io.github.futurewl.imooc.java.authority.management.dao.SysAclModuleMapper;
 import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
+import io.github.futurewl.imooc.java.authority.management.model.SysAclModule;
 import io.github.futurewl.imooc.java.authority.management.param.TestVo;
 import io.github.futurewl.imooc.java.authority.management.util.BeanValidator;
+import io.github.futurewl.imooc.java.authority.management.util.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +37,9 @@ public class TestController {
     @ResponseBody
     public JsonData validate(TestVo vo) throws ParamException {
         log.info("validate");
+        SysAclModuleMapper moduleMapper = ApplicationContextHelper.popBean(SysAclModuleMapper.class);
+        SysAclModule module = moduleMapper.selectByPrimaryKey(1);
+        log.info(JsonMapper.obj2String(module));
         BeanValidator.check(vo);
         return JsonData.success("test validate");
     }

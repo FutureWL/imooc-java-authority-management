@@ -13,6 +13,8 @@
     <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.controller"/>
     <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.service"/>
 
+    <bean class="io.github.futurewl.imooc.java.authority.management.common.ApplicationContextHelper" lazy-init="false"/>
+
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
