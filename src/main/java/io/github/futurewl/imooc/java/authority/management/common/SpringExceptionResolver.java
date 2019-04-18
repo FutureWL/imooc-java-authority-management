@@ -1,5 +1,6 @@
 package io.github.futurewl.imooc.java.authority.management.common;
 
+import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
 import io.github.futurewl.imooc.java.authority.management.exception.PermissionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -26,7 +27,7 @@ public class SpringExceptionResolver implements HandlerExceptionResolver {
         // .json, .page
         // 这里我么要求项目中所有请求 json 数据，都使用 .json 结尾
         if (url.endsWith(".json")) {
-            if (ex instanceof PermissionException) {
+            if (ex instanceof PermissionException || ex instanceof ParamException) {
                 JsonData result = JsonData.fail(ex.getMessage());
                 modelAndView = new ModelAndView("jsonView", result.toMap());
             } else {
