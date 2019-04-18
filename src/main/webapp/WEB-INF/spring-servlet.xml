@@ -24,4 +24,6 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <bean class="io.github.futurewl.imooc.java.authority.management.common.SpringExceptionResolver"/>
+
 </beans>

@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="imooc-java-authority-management" target="1.5" />
+      <module name="imooc-java-authority-management" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
