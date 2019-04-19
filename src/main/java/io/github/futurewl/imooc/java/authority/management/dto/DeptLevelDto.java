@@ -10,7 +10,7 @@ import org.springframework.beans.BeanUtils;
 import java.util.List;
 
 /**
- * 功能描述：
+ * 功能描述：部门层级转换对象
  *
  * @author weilai create by 2019-04-19:14:28
  * @version 1.0

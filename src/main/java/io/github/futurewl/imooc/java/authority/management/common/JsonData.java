@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 功能描述：
+ * 功能描述：JSON 数据
  *
  * @author weilai create by 2019-04-18:15:38
  * @version 1.0

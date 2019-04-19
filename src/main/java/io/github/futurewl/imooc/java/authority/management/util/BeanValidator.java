@@ -13,7 +13,7 @@ import javax.validation.ValidatorFactory;
 import java.util.*;
 
 /**
- * 功能描述：
+ * 功能描述：Bean 校验器
  *
  * @author weilai create by 2019-04-18:16:03
  * @version 1.0

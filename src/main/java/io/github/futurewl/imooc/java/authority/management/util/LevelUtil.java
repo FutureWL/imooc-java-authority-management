@@ -3,7 +3,7 @@ package io.github.futurewl.imooc.java.authority.management.util;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * 功能描述：
+ * 功能描述：标签工具
  *
  * @author weilai create by 2019-04-19:14:20
  * @version 1.0

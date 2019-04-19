@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * 功能描述：
+ * 功能描述：应用上下文帮助类
  *
  * @author weilai create by 2019-04-18:21:49
  * @version 1.0

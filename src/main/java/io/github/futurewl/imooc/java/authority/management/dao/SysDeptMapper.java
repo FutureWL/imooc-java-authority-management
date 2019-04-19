@@ -20,6 +20,12 @@ public interface SysDeptMapper {
 
     List<SysDept> getAllDept();
 
+    /**
+     * 通过层级，获取所有子部门
+     *
+     * @param level
+     * @return
+     */
     List<SysDept> getChildDeptListByLevel(@Param("level") String level);
 
     void batchUpdateLevel(@Param("sysDeptList") List<SysDept> sysDeptList);

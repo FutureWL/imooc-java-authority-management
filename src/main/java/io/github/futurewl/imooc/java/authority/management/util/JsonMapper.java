@@ -1,9 +1,7 @@
 package io.github.futurewl.imooc.java.authority.management.util;
 
 import lombok.extern.slf4j.Slf4j;
-import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.DeserializationConfig;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -13,7 +11,7 @@ import org.codehaus.jackson.type.TypeReference;
 import java.io.IOException;
 
 /**
- * 功能描述：
+ * 功能描述：JSON 序列化器
  *
  * @author weilai create by 2019-04-18:21:35
  * @version 1.0

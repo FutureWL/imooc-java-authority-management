@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 功能描述：
+ * 功能描述：Spring 异常响应
  *
  * @author weilai create by 2019-04-18:15:41
  * @version 1.0
@@ -20,6 +20,7 @@ public class SpringExceptionResolver implements HandlerExceptionResolver {
 
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+
         String url = request.getRequestURL().toString();
         ModelAndView modelAndView;
         String defaultMsg = "System error";
@@ -41,7 +42,9 @@ public class SpringExceptionResolver implements HandlerExceptionResolver {
             log.error("unknow page exception,url:" + url, ex);
             JsonData result = JsonData.fail(defaultMsg);
             modelAndView = new ModelAndView("exception", result.toMap());
-        } else {
+        }
+        // 未知的异常处理
+        else {
             log.error("unknow exception,url:" + url, ex);
             JsonData result = JsonData.fail(defaultMsg);
             modelAndView = new ModelAndView("jsonView", result.toMap());

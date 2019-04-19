@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
- * 功能描述：
+ * 功能描述：HTTP 拦截器
  *
  * @author weilai create by 2019-04-18:22:05
  * @version 1.0

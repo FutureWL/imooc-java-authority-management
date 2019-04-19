@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 功能描述：
+ * 功能描述：系统部门服务实现
  *
  * @author weilai create by 2019-04-19:14:18
  * @version 1.0
@@ -27,6 +27,11 @@ public class SysDeptService {
     @Resource
     private SysDeptMapper sysDeptMapper;
 
+    /**
+     * 保存部门
+     *
+     * @param param
+     */
     public void save(DeptParam param) {
         BeanValidator.check(param);
         if (checkExist(param.getParentId(), param.getName(), param.getId())) {
@@ -40,12 +45,19 @@ public class SysDeptService {
                 .remark(param.getRemark())
                 .build();
         dept.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
-        dept.setOperator("system"); // todo
-        dept.setOperatorIp("127.0.0.1"); // todo
+        // todo
+        dept.setOperator("system");
+        // todo
+        dept.setOperatorIp("127.0.0.1");
         dept.setOperatorTime(new Date());
         sysDeptMapper.insertSelective(dept);
     }
 
+    /**
+     * 更新部门
+     *
+     * @param param
+     */
     public void update(DeptParam param) {
         BeanValidator.check(param);
         if (checkExist(param.getParentId(), param.getName(), param.getId())) {
@@ -56,7 +68,6 @@ public class SysDeptService {
         if (checkExist(param.getParentId(), param.getName(), param.getId())) {
             throw new ParamException("同一层级下存在相同名称的部门");
         }
-
         SysDept after = SysDept
                 .builder()
                 .id(param.getId())
@@ -67,32 +78,47 @@ public class SysDeptService {
                 .build();
 
         after.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
-        after.setOperator("system-update"); // todo
-        after.setOperatorIp("127.0.0.1"); // todo
+        // todo
+        after.setOperator("system-update");
+        // todo
+        after.setOperatorIp("127.0.0.1");
         after.setOperatorTime(new Date());
-
         updateWithChild(before, after);
     }
 
+    /**
+     * 更新部门
+     *
+     * @param before
+     * @param after
+     */
     @Transactional
     private void updateWithChild(SysDept before, SysDept after) {
         sysDeptMapper.updateByPrimaryKey(after);
-
         String newLevelPrefix = after.getLevel();
         String oldLevelPrefix = before.getLevel();
+        // 如果层级不变
         if (!after.getLevel().equals(before.getLevel())) {
+            // 获取所有的子部门
             List<SysDept> deptList = sysDeptMapper.getChildDeptListByLevel(before.getLevel());
+            // 判断子部门是否是空
             if (CollectionUtils.isNotEmpty(deptList)) {
+                // 遍历所有的子部门
                 for (SysDept dept : deptList) {
+                    // 获取 层级
                     String level = dept.getLevel();
+                    // 判断当前是第几层级
                     if (level.indexOf(oldLevelPrefix) == 0) {
+                        // 组合新的层次结构
                         level = newLevelPrefix + level.substring(oldLevelPrefix.length());
                         dept.setLevel(level);
                     }
                 }
+                // 批量更新层级
                 sysDeptMapper.batchUpdateLevel(deptList);
             }
         }
+        // 更新新的部门关联
         sysDeptMapper.updateByPrimaryKey(after);
     }
 

@@ -11,12 +11,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
- * 功能描述：
+ * 功能描述：系统树结构服务实现
  *
  * @author weilai create by 2019-04-19:14:30
  * @version 1.0
@@ -29,10 +28,15 @@ public class SysTreeService {
 
     public Comparator<DeptLevelDto> deptSeqComparator = Comparator.comparingInt(SysDept::getSeq);
 
+    /**
+     * 获取所有的部门树结构
+     *
+     * @return
+     */
     public List<DeptLevelDto> deptTree() {
         List<SysDept> deptList = sysDeptMapper.getAllDept();
-
         List<DeptLevelDto> dtoList = Lists.newArrayList();
+        // 将所有的部门对象转换为部门层树
         for (SysDept dept : deptList) {
             DeptLevelDto dto = DeptLevelDto.adapt(dept);
             dtoList.add(dto);
@@ -40,22 +44,28 @@ public class SysTreeService {
         return deptLevelDtoTree(dtoList);
     }
 
-    public List<DeptLevelDto> deptLevelDtoTree(List<DeptLevelDto> deptLevelDtoList) {
+    /**
+     * 获取所有的部门层级树
+     *
+     * @param deptLevelDtoList
+     * @return
+     */
+    private List<DeptLevelDto> deptLevelDtoTree(List<DeptLevelDto> deptLevelDtoList) {
+        // 判断是否是最后顶级部门
         if (CollectionUtils.isEmpty(deptLevelDtoList)) {
             return Lists.newArrayList();
         }
-
         // level -> [dept1,dept2,...]
         Multimap<String, DeptLevelDto> levelDtoMultimap = ArrayListMultimap.create();
         List<DeptLevelDto> rootList = Lists.newArrayList();
-
+        // 对应
         for (DeptLevelDto deptLevelDto : deptLevelDtoList) {
             levelDtoMultimap.put(deptLevelDto.getLevel(), deptLevelDto);
+            // 如果是顶级目部门，则添加到顶层部门列表
             if (LevelUtil.ROOT.equals(deptLevelDto.getLevel())) {
                 rootList.add(deptLevelDto);
             }
         }
-
         // 按照 sql 从小到大排序
         rootList.sort(Comparator.comparingInt(SysDept::getSeq));
         // 递归生成树
@@ -72,7 +82,11 @@ public class SysTreeService {
      * @param level
      * @param levelDtoMultimap
      */
-    public void transformDeptTree(List<DeptLevelDto> deptLevelDtoList, String level, Multimap<String, DeptLevelDto> levelDtoMultimap) {
+    private void transformDeptTree(
+            List<DeptLevelDto> deptLevelDtoList,
+            String level,
+            Multimap<String, DeptLevelDto> levelDtoMultimap
+    ) {
         // 遍历该层的每个元素
         for (DeptLevelDto deptLevelDto : deptLevelDtoList) {
             // 处理当前层级的数据
