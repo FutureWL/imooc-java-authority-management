@@ -73,9 +73,8 @@ public class SysTreeService {
      * @param levelDtoMultimap
      */
     public void transformDeptTree(List<DeptLevelDto> deptLevelDtoList, String level, Multimap<String, DeptLevelDto> levelDtoMultimap) {
-        for (int i = 0; i < deptLevelDtoList.size(); i++) {
-            // 遍历该层的每个元素
-            DeptLevelDto deptLevelDto = deptLevelDtoList.get(i);
+        // 遍历该层的每个元素
+        for (DeptLevelDto deptLevelDto : deptLevelDtoList) {
             // 处理当前层级的数据
             String nextLevel = LevelUtil.calculateLevel(level, deptLevelDto.getId());
             // 处理下一层
