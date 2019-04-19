@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>部门管理</title>
-    <jsp:include page="/backend_common.jsp"/>
-<%--    <jsp:include page="/index.jsp"/>--%>
+    <jsp:include page="/common/backend_common.jsp"/>
+    <%--    <jsp:include page="/index.jsp"/>--%>
 </head>
 <body class="no-skin" youdao="bind" style="background: white;">
 <input id="gritter-light" checked type="checkbox" class="ace ace-switch ace-switch-5">
@@ -164,6 +164,7 @@
 </div>
 
 <script id="deptListTemplate" type="x-tmpl-mustache">
+
 <ol class="dd-list">
     {{#deptList}}
         <li class="dd-item dd2-item dept-name" id="dept_{{id}}" href="javascript:void(0)" data-id="{{id}}">
@@ -182,8 +183,6 @@
         </li>
     {{/deptList}}
 </ol>
-
-
 
 </script>
 <script id="userListTemplate" type="x-tmpl-mustache">
@@ -206,8 +205,6 @@
     </td>
 </tr>
 {{/userList}}
-
-
 
 </script>
 

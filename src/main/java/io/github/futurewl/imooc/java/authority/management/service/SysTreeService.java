@@ -59,7 +59,7 @@ public class SysTreeService {
         // 按照 sql 从小到大排序
         rootList.sort(Comparator.comparingInt(SysDept::getSeq));
         // 递归生成树
-        transformDeptTree(deptLevelDtoList, LevelUtil.ROOT, levelDtoMultimap);
+        transformDeptTree(rootList, LevelUtil.ROOT, levelDtoMultimap);
         return rootList;
     }
 
@@ -72,12 +72,10 @@ public class SysTreeService {
      * @param level
      * @param levelDtoMultimap
      */
-    public void transformDeptTree(
-            List<DeptLevelDto> deptLevelDtoList,
-            String level,
-            Multimap<String, DeptLevelDto> levelDtoMultimap) {
-        for (DeptLevelDto deptLevelDto : deptLevelDtoList) {
+    public void transformDeptTree(List<DeptLevelDto> deptLevelDtoList, String level, Multimap<String, DeptLevelDto> levelDtoMultimap) {
+        for (int i = 0; i < deptLevelDtoList.size(); i++) {
             // 遍历该层的每个元素
+            DeptLevelDto deptLevelDto = deptLevelDtoList.get(i);
             // 处理当前层级的数据
             String nextLevel = LevelUtil.calculateLevel(level, deptLevelDto.getId());
             // 处理下一层
@@ -86,7 +84,7 @@ public class SysTreeService {
                 // 排序
                 tempDeptList.sort(deptSeqComparator);
                 // 设置下一层部门
-                deptLevelDto.setDeptLevelDtoList(tempDeptList);
+                deptLevelDto.setDeptList(tempDeptList);
                 // 进入到下一层处理
                 transformDeptTree(tempDeptList, nextLevel, levelDtoMultimap);
             }

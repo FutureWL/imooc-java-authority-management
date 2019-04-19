@@ -13,14 +13,14 @@
         <bean class="io.github.futurewl.imooc.java.authority.management.common.HttpInterceptor"/>
     </mvc:interceptors>
 
+    <!-- 启动包扫描功能 -->
+    <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.controller"/>
+    <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.service"/>
+
     <mvc:resources mapping="/js/**" location="/js/"/>
     <mvc:resources mapping="/css/**" location="/css/"/>
     <mvc:resources mapping="/bootstrap3.3.5/**" location="/bootstrap3.3.5/"/>
     <mvc:resources mapping="/assets/**" location="/assets/"/>
-
-    <!-- 启动包扫描功能 -->
-    <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.controller"/>
-    <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.service"/>
 
     <bean class="io.github.futurewl.imooc.java.authority.management.common.ApplicationContextHelper" lazy-init="false"/>
 
