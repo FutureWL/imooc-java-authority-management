@@ -2,6 +2,8 @@ package io.github.futurewl.imooc.java.authority.management.dao;
 
 import io.github.futurewl.imooc.java.authority.management.model.SysDept;
 
+import java.util.List;
+
 public interface SysDeptMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -13,7 +15,7 @@ public interface SysDeptMapper {
 
     int updateByPrimaryKeySelective(SysDept record);
 
-    int updateByPrimaryKeyWithBLOBs(SysDept record);
-
     int updateByPrimaryKey(SysDept record);
+
+    List<SysDept> getAllDept();
 }
