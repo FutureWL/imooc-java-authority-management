@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,6 +30,11 @@ public class SysDeptController {
 
     @Resource
     private SysTreeService sysTreeService;
+
+    @RequestMapping("/page.json")
+    public ModelAndView page() {
+        return new ModelAndView("dept");
+    }
 
     @ResponseBody
     @RequestMapping("/save.json")

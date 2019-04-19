@@ -13,6 +13,11 @@
         <bean class="io.github.futurewl.imooc.java.authority.management.common.HttpInterceptor"/>
     </mvc:interceptors>
 
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/bootstrap3.3.5/**" location="/bootstrap3.3.5/"/>
+    <mvc:resources mapping="/assets/**" location="/assets/"/>
+
     <!-- 启动包扫描功能 -->
     <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.controller"/>
     <context:component-scan base-package="io.github.futurewl.imooc.java.authority.management.service"/>
@@ -26,7 +31,7 @@
     <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/views/"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 

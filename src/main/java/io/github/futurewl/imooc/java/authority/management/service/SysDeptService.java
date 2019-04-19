@@ -49,10 +49,13 @@ public class SysDeptService {
     public void update(DeptParam param) {
         BeanValidator.check(param);
         if (checkExist(param.getParentId(), param.getName(), param.getId())) {
-            throw new ParamException("同层级下存在相同名称的部门");
+            throw new ParamException("同一层级下存在相同名称的部门");
         }
         SysDept before = sysDeptMapper.selectByPrimaryKey(param.getId());
         Preconditions.checkNotNull(before, "待更新部门不存在");
+        if (checkExist(param.getParentId(), param.getName(), param.getId())) {
+            throw new ParamException("同一层级下存在相同名称的部门");
+        }
 
         SysDept after = SysDept
                 .builder()
@@ -64,7 +67,7 @@ public class SysDeptService {
                 .build();
 
         after.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
-        after.setOperator("system"); // todo
+        after.setOperator("system-update"); // todo
         after.setOperatorIp("127.0.0.1"); // todo
         after.setOperatorTime(new Date());
 
