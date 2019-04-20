@@ -15,6 +15,8 @@ public class SysLog {
 
     private Date operatorTime;
 
+    private String operatorIp;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class SysLog {
 
     public void setOperatorTime(Date operatorTime) {
         this.operatorTime = operatorTime;
+    }
+
+    public String getOperatorIp() {
+        return operatorIp;
+    }
+
+    public void setOperatorIp(String operatorIp) {
+        this.operatorIp = operatorIp == null ? null : operatorIp.trim();
     }
 }

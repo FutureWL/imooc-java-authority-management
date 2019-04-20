@@ -1,7 +1,16 @@
 package io.github.futurewl.imooc.java.authority.management.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SysUser {
     private Integer id;
 
@@ -10,6 +19,8 @@ public class SysUser {
     private String telephone;
 
     private String mail;
+
+    private String password;
 
     private Integer deptId;
 
@@ -20,6 +31,8 @@ public class SysUser {
     private String operator;
 
     private Date operatorTime;
+
+    private String operatorIp;
 
     public Integer getId() {
         return id;
@@ -51,6 +64,14 @@ public class SysUser {
 
     public void setMail(String mail) {
         this.mail = mail == null ? null : mail.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public Integer getDeptId() {
@@ -91,5 +112,13 @@ public class SysUser {
 
     public void setOperatorTime(Date operatorTime) {
         this.operatorTime = operatorTime;
+    }
+
+    public String getOperatorIp() {
+        return operatorIp;
+    }
+
+    public void setOperatorIp(String operatorIp) {
+        this.operatorIp = operatorIp == null ? null : operatorIp.trim();
     }
 }

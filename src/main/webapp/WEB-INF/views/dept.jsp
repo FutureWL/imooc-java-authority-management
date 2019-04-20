@@ -185,6 +185,7 @@
 </ol>
 
 </script>
+
 <script id="userListTemplate" type="x-tmpl-mustache">
 {{#userList}}
 <tr role="row" class="user-name odd" data-id="{{id}}"><!--even -->
@@ -206,6 +207,7 @@
 </tr>
 {{/userList}}
 
+
 </script>
 
 <script type="application/javascript">
@@ -224,6 +226,7 @@
 
         loadDeptTree();
 
+        // 加载部门树
         function loadDeptTree() {
             $.ajax({
                 url: "/sys/dept/tree.json",
@@ -241,7 +244,7 @@
             })
         }
 
-        // 递归渲染部门树
+        // 递归渲染部门
         function recursiveRenderDept(deptList) {
             if (deptList && deptList.length > 0) {
                 $(deptList).each(function (i, dept) {
@@ -258,6 +261,7 @@
         // 绑定部门点击事件
         function bindDeptClick() {
 
+            // 部门名称点击事件
             $(".dept-name").click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -265,6 +269,7 @@
                 handleDepSelected(deptId);
             });
 
+            // 部门删除点击事件
             $(".dept-delete").click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -288,6 +293,7 @@
                 }
             });
 
+            // 部门编辑事件
             $(".dept-edit").click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -327,6 +333,10 @@
             })
         }
 
+        /**
+         * 处理部门选中事件
+         * @param deptId
+         */
         function handleDepSelected(deptId) {
             if (lastClickDeptId != -1) {
                 var lastDept = $("#dept_" + lastClickDeptId + " .dd2-content:first");
@@ -340,6 +350,10 @@
             loadUserList(deptId);
         }
 
+        /**
+         * 载入用户列表
+         * @param deptId
+         */
         function loadUserList(deptId) {
             var pageSize = $("#pageSize").val();
             var url = "/sys/user/page.json?deptId=" + deptId;
@@ -356,6 +370,11 @@
             })
         }
 
+        /**
+         * 渲染用户列表和页面
+         * @param result
+         * @param url
+         */
         function renderUserListAndPage(result, url) {
             if (result.ret) {
                 if (result.data.total > 0) {
@@ -396,6 +415,7 @@
             }
         }
 
+        // 添加用户点击事件
         $(".user-add").click(function () {
             $("#dialog-user-form").dialog({
                 modal: true,
@@ -424,7 +444,12 @@
             });
         });
 
+        /**
+         * 绑定用户点击事件
+         */
         function bindUserClick() {
+
+            // 用户权限点击事件
             $(".user-acl").click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -443,6 +468,8 @@
                     }
                 })
             });
+
+            // 编辑用户点击事件
             $(".user-edit").click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -486,6 +513,7 @@
             });
         }
 
+        // 添加部门点击事件
         $(".dept-add").click(function () {
             $("#dialog-dept-form").dialog({
                 modal: true,
@@ -513,6 +541,11 @@
             });
         });
 
+        /**
+         * 随机生成部门选择
+         * @param deptList
+         * @param level
+         */
         function recursiveRenderDeptSelect(deptList, level) {
             level = level | 0;
             if (deptList && deptList.length > 0) {
@@ -536,6 +569,12 @@
             }
         }
 
+        /**
+         * 更新用户
+         * @param isCreate
+         * @param successCallback
+         * @param failCallback
+         */
         function updateUser(isCreate, successCallback, failCallback) {
             $.ajax({
                 url: isCreate ? "/sys/user/save.json" : "/sys/user/update.json",
@@ -556,6 +595,12 @@
             })
         }
 
+        /**
+         * 更新部门
+         * @param isCreate
+         * @param successCallback
+         * @param failCallback
+         */
         function updateDept(isCreate, successCallback, failCallback) {
             $.ajax({
                 url: isCreate ? "/sys/dept/save.json" : "/sys/dept/update.json",

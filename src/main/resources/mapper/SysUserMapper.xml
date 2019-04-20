@@ -6,21 +6,21 @@
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="mail" property="mail" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="dept_id" property="deptId" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="operator" property="operator" jdbcType="VARCHAR" />
     <result column="operator_time" property="operatorTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="io.github.futurewl.imooc.java.authority.management.model.SysUserWithBLOBs" extends="BaseResultMap" >
-    <result column="password" property="password" jdbcType="VARBINARY" />
+  <resultMap id="ResultMapWithBLOBs" type="io.github.futurewl.imooc.java.authority.management.model.SysUser" extends="BaseResultMap" >
     <result column="operator_ip" property="operatorIp" jdbcType="VARBINARY" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, telephone, mail, dept_id, status, remark, operator, operator_time
+    id, username, telephone, mail, password, dept_id, status, remark, operator, operator_time
   </sql>
   <sql id="Blob_Column_List" >
-    password, operator_ip
+    operator_ip
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -34,17 +34,17 @@
     delete from sys_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysUserWithBLOBs" >
+  <insert id="insert" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysUser" >
     insert into sys_user (id, username, telephone, 
-      mail, dept_id, status, 
-      remark, operator, operator_time, 
-      password, operator_ip)
+      mail, password, dept_id, 
+      status, remark, operator, 
+      operator_time, operator_ip)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
-      #{mail,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, #{operatorTime,jdbcType=TIMESTAMP}, 
-      #{password,jdbcType=VARBINARY}, #{operatorIp,jdbcType=VARBINARY})
+      #{mail,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+      #{operatorTime,jdbcType=TIMESTAMP}, #{operatorIp,jdbcType=VARBINARY})
   </insert>
-  <insert id="insertSelective" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysUserWithBLOBs" >
+  <insert id="insertSelective" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysUser" >
     insert into sys_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -58,6 +58,9 @@
       </if>
       <if test="mail != null" >
         mail,
+      </if>
+      <if test="password != null" >
+        password,
       </if>
       <if test="deptId != null" >
         dept_id,
@@ -73,9 +76,6 @@
       </if>
       <if test="operatorTime != null" >
         operator_time,
-      </if>
-      <if test="password != null" >
-        password,
       </if>
       <if test="operatorIp != null" >
         operator_ip,
@@ -94,6 +94,9 @@
       <if test="mail != null" >
         #{mail,jdbcType=VARCHAR},
       </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
       <if test="deptId != null" >
         #{deptId,jdbcType=INTEGER},
       </if>
@@ -109,15 +112,12 @@
       <if test="operatorTime != null" >
         #{operatorTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARBINARY},
-      </if>
       <if test="operatorIp != null" >
         #{operatorIp,jdbcType=VARBINARY},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysUserWithBLOBs" >
+  <update id="updateByPrimaryKeySelective" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysUser" >
     update sys_user
     <set >
       <if test="username != null" >
@@ -128,6 +128,9 @@
       </if>
       <if test="mail != null" >
         mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="deptId != null" >
         dept_id = #{deptId,jdbcType=INTEGER},
@@ -144,26 +147,23 @@
       <if test="operatorTime != null" >
         operator_time = #{operatorTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARBINARY},
-      </if>
       <if test="operatorIp != null" >
         operator_ip = #{operatorIp,jdbcType=VARBINARY},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysUserWithBLOBs" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysUser" >
     update sys_user
     set username = #{username,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       mail = #{mail,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       dept_id = #{deptId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=VARCHAR},
       operator_time = #{operatorTime,jdbcType=TIMESTAMP},
-      password = #{password,jdbcType=VARBINARY},
       operator_ip = #{operatorIp,jdbcType=VARBINARY}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -172,6 +172,7 @@
     set username = #{username,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       mail = #{mail,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       dept_id = #{deptId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},

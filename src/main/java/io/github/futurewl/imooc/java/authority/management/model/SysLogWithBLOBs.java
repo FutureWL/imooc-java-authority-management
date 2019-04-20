@@ -5,8 +5,6 @@ public class SysLogWithBLOBs extends SysLog {
 
     private String newvalue;
 
-    private byte[] operatorIp;
-
     public String getOldvalue() {
         return oldvalue;
     }
@@ -21,13 +19,5 @@ public class SysLogWithBLOBs extends SysLog {
 
     public void setNewvalue(String newvalue) {
         this.newvalue = newvalue == null ? null : newvalue.trim();
-    }
-
-    public byte[] getOperatorIp() {
-        return operatorIp;
-    }
-
-    public void setOperatorIp(byte[] operatorIp) {
-        this.operatorIp = operatorIp;
     }
 }

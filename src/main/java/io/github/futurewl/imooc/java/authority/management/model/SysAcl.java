@@ -11,6 +11,8 @@ public class SysAcl {
 
     private Integer arlModuleId;
 
+    private String url;
+
     private Integer type;
 
     private Integer status;
@@ -24,8 +26,6 @@ public class SysAcl {
     private Date operatorTime;
 
     private String operatorIp;
-
-    private byte[] url;
 
     public Integer getId() {
         return id;
@@ -57,6 +57,14 @@ public class SysAcl {
 
     public void setArlModuleId(Integer arlModuleId) {
         this.arlModuleId = arlModuleId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url == null ? null : url.trim();
     }
 
     public Integer getType() {
@@ -113,13 +121,5 @@ public class SysAcl {
 
     public void setOperatorIp(String operatorIp) {
         this.operatorIp = operatorIp == null ? null : operatorIp.trim();
-    }
-
-    public byte[] getUrl() {
-        return url;
-    }
-
-    public void setUrl(byte[] url) {
-        this.url = url;
     }
 }

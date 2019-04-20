@@ -13,7 +13,7 @@ public class SysRoleUser {
 
     private Date operatorTime;
 
-    private byte[] operatorIp;
+    private String operatorIp;
 
     public Integer getId() {
         return id;
@@ -55,11 +55,11 @@ public class SysRoleUser {
         this.operatorTime = operatorTime;
     }
 
-    public byte[] getOperatorIp() {
+    public String getOperatorIp() {
         return operatorIp;
     }
 
-    public void setOperatorIp(byte[] operatorIp) {
-        this.operatorIp = operatorIp;
+    public void setOperatorIp(String operatorIp) {
+        this.operatorIp = operatorIp == null ? null : operatorIp.trim();
     }
 }
