@@ -4,7 +4,6 @@ import io.github.futurewl.imooc.java.authority.management.model.SysUser;
 import io.github.futurewl.imooc.java.authority.management.service.SysUserService;
 import io.github.futurewl.imooc.java.authority.management.util.MD5Util;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

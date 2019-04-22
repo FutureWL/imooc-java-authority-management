@@ -1,5 +1,5 @@
-<%@ page import="java.net.URLEncoder" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <html lang="zh-CN">
 <%

@@ -7,7 +7,6 @@ import io.github.futurewl.imooc.java.authority.management.model.SysUser;
 import io.github.futurewl.imooc.java.authority.management.param.UserParam;
 import io.github.futurewl.imooc.java.authority.management.util.BeanValidator;
 import io.github.futurewl.imooc.java.authority.management.util.MD5Util;
-import io.github.futurewl.imooc.java.authority.management.util.PasswordUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

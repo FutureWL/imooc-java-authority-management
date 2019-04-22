@@ -1,6 +1,5 @@
 package io.github.futurewl.imooc.java.authority.management.util;
 
-import java.util.Date;
 import java.util.Random;
 
 /**
