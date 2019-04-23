@@ -1,13 +1,24 @@
 package io.github.futurewl.imooc.java.authority.management.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Date;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SysAclModule {
     private Integer id;
 
     private String name;
 
     private Integer parentId;
+
+    private String level;
 
     private Integer seq;
 
@@ -20,8 +31,6 @@ public class SysAclModule {
     private Date operatorTime;
 
     private String operatorIp;
-
-    private byte[] level;
 
     public Integer getId() {
         return id;
@@ -45,6 +54,14 @@ public class SysAclModule {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level == null ? null : level.trim();
     }
 
     public Integer getSeq() {
@@ -93,13 +110,5 @@ public class SysAclModule {
 
     public void setOperatorIp(String operatorIp) {
         this.operatorIp = operatorIp == null ? null : operatorIp.trim();
-    }
-
-    public byte[] getLevel() {
-        return level;
-    }
-
-    public void setLevel(byte[] level) {
-        this.level = level;
     }
 }
