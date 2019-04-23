@@ -57,6 +57,7 @@ public class UserController {
             } else {
                 response.sendRedirect("/admin/index.page"); // todo
             }
+            return;
         }
         request.setAttribute("error", errorMsg);
         request.setAttribute("username", username);

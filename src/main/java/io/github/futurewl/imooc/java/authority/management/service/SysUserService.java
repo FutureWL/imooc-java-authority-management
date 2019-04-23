@@ -1,7 +1,7 @@
 package io.github.futurewl.imooc.java.authority.management.service;
 
-import com.alibaba.druid.sql.PagerUtils;
 import com.google.common.base.Preconditions;
+import io.github.futurewl.imooc.java.authority.management.beans.Mail;
 import io.github.futurewl.imooc.java.authority.management.beans.PageQuery;
 import io.github.futurewl.imooc.java.authority.management.beans.PageResult;
 import io.github.futurewl.imooc.java.authority.management.common.RequestHolder;
@@ -12,9 +12,11 @@ import io.github.futurewl.imooc.java.authority.management.param.UserParam;
 import io.github.futurewl.imooc.java.authority.management.util.BeanValidator;
 import io.github.futurewl.imooc.java.authority.management.util.IpUtil;
 import io.github.futurewl.imooc.java.authority.management.util.MD5Util;
+import io.github.futurewl.imooc.java.authority.management.util.MailUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -54,8 +56,7 @@ public class SysUserService {
         user.setOperator(RequestHolder.getCurrentUser().getUsername());
         user.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         user.setOperatorTime(new Date());
-
-        // todo 发送 Email
+        MailUtil.send(new Mail("您的密码", password, Collections.singleton(userParam.getMail())));
         sysUserMapper.insertSelective(user);
 
     }

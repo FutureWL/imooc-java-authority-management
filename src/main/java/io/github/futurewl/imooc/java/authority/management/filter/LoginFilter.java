@@ -32,13 +32,13 @@ public class LoginFilter implements Filter {
         SysUser sysUser = (SysUser) request.getSession().getAttribute("user");
 
         if (sysUser == null) {
-            String path = "signin.jsp";
+            String path = "/signin.jsp";
             response.sendRedirect(path);
             return;
         }
         RequestHolder.add(sysUser);
         RequestHolder.add(request);
-        doFilter(servletRequest, servletResponse, filterChain);
+        filterChain.doFilter(request, response);
     }
 
     @Override
