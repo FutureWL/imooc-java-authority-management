@@ -1,11 +1,13 @@
 package io.github.futurewl.imooc.java.authority.management.service;
 
 import com.google.common.base.Preconditions;
+import io.github.futurewl.imooc.java.authority.management.common.RequestHolder;
 import io.github.futurewl.imooc.java.authority.management.dao.SysDeptMapper;
 import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
 import io.github.futurewl.imooc.java.authority.management.model.SysDept;
 import io.github.futurewl.imooc.java.authority.management.param.DeptParam;
 import io.github.futurewl.imooc.java.authority.management.util.BeanValidator;
+import io.github.futurewl.imooc.java.authority.management.util.IpUtil;
 import io.github.futurewl.imooc.java.authority.management.util.LevelUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
@@ -45,10 +47,8 @@ public class SysDeptService {
                 .remark(param.getRemark())
                 .build();
         dept.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
-        // todo
-        dept.setOperator("system");
-        // todo
-        dept.setOperatorIp("127.0.0.1");
+        dept.setOperator(RequestHolder.getCurrentUser().getUsername());
+        dept.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         dept.setOperatorTime(new Date());
         sysDeptMapper.insertSelective(dept);
     }
@@ -79,9 +79,9 @@ public class SysDeptService {
 
         after.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
         // todo
-        after.setOperator("system-update");
+        after.setOperator(RequestHolder.getCurrentUser().getUsername());
         // todo
-        after.setOperatorIp("127.0.0.1");
+        after.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperatorTime(new Date());
         updateWithChild(before, after);
     }

@@ -4,11 +4,13 @@ import com.alibaba.druid.sql.PagerUtils;
 import com.google.common.base.Preconditions;
 import io.github.futurewl.imooc.java.authority.management.beans.PageQuery;
 import io.github.futurewl.imooc.java.authority.management.beans.PageResult;
+import io.github.futurewl.imooc.java.authority.management.common.RequestHolder;
 import io.github.futurewl.imooc.java.authority.management.dao.SysUserMapper;
 import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
 import io.github.futurewl.imooc.java.authority.management.model.SysUser;
 import io.github.futurewl.imooc.java.authority.management.param.UserParam;
 import io.github.futurewl.imooc.java.authority.management.util.BeanValidator;
+import io.github.futurewl.imooc.java.authority.management.util.IpUtil;
 import io.github.futurewl.imooc.java.authority.management.util.MD5Util;
 import org.springframework.stereotype.Service;
 
@@ -49,8 +51,8 @@ public class SysUserService {
                 .status(userParam.getStatus())
                 .remark(userParam.getRemark())
                 .build();
-        user.setOperator("system");
-        user.setOperatorIp("127.0.0.1");
+        user.setOperator(RequestHolder.getCurrentUser().getUsername());
+        user.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         user.setOperatorTime(new Date());
 
         // todo 发送 Email
