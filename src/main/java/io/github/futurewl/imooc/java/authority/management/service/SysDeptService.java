@@ -94,13 +94,14 @@ public class SysDeptService {
      */
     @Transactional
     private void updateWithChild(SysDept before, SysDept after) {
-        sysDeptMapper.updateByPrimaryKey(after);
+
         String newLevelPrefix = after.getLevel();
         String oldLevelPrefix = before.getLevel();
         // 如果层级不变
         if (!after.getLevel().equals(before.getLevel())) {
+            String curLevel = before.getLevel() + "." + before.getId();
             // 获取所有的子部门
-            List<SysDept> deptList = sysDeptMapper.getChildDeptListByLevel(before.getLevel());
+            List<SysDept> deptList = sysDeptMapper.getChildDeptListByLevel(curLevel + "%");
             // 判断子部门是否是空
             if (CollectionUtils.isNotEmpty(deptList)) {
                 // 遍历所有的子部门
@@ -108,8 +109,10 @@ public class SysDeptService {
                     // 获取 层级
                     String level = dept.getLevel();
                     // 判断当前是第几层级
-                    if (level.indexOf(oldLevelPrefix) == 0) {
+                    if (level.equals(curLevel) || level.indexOf(curLevel + ".") == 0) {
                         // 组合新的层次结构
+                        // getChildAclModuleListByLevel可能会取出多余的内容，因此需要加个判断
+                        // 比如0.1* 可能取出0.1、0.1.3、0.11、0.11.3，而期望取出  0.1、0.1.3， 因此呢需要判断等于0.1或者以0.1.为前缀才满足条件
                         level = newLevelPrefix + level.substring(oldLevelPrefix.length());
                         dept.setLevel(level);
                     }

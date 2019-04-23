@@ -1,6 +1,9 @@
 package io.github.futurewl.imooc.java.authority.management.service;
 
+import com.alibaba.druid.sql.PagerUtils;
 import com.google.common.base.Preconditions;
+import io.github.futurewl.imooc.java.authority.management.beans.PageQuery;
+import io.github.futurewl.imooc.java.authority.management.beans.PageResult;
 import io.github.futurewl.imooc.java.authority.management.dao.SysUserMapper;
 import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
 import io.github.futurewl.imooc.java.authority.management.model.SysUser;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 功能描述：
@@ -87,6 +91,16 @@ public class SysUserService {
 
     public SysUser findByKeyword(String keyword) {
         return sysUserMapper.findByKeyword(keyword);
+    }
+
+    public PageResult<SysUser> getPageByDeptId(int deptId, PageQuery pageQuery) {
+        BeanValidator.check(pageQuery);
+        int count = sysUserMapper.countByDeptId(deptId);
+        if (count > 0) {
+            List<SysUser> list = sysUserMapper.getPageByDeptId(deptId, pageQuery);
+            return PageResult.<SysUser>builder().total(count).data(list).build();
+        }
+        return PageResult.<SysUser>builder().build();
     }
 
 }
