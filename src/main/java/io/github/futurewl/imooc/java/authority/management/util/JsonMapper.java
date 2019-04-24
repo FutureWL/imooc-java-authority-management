@@ -41,7 +41,7 @@ public class JsonMapper {
         }
     }
 
-    public static <T> T string2Object(String src, TypeReference<T> tTypeReference) {
+    public static <T> T string2Obj(String src, TypeReference<T> tTypeReference) {
         if (src == null | tTypeReference == null) {
             return null;
         }

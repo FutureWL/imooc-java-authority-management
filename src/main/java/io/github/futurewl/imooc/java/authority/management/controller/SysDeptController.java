@@ -8,6 +8,7 @@ import io.github.futurewl.imooc.java.authority.management.service.SysTreeService
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,6 +55,14 @@ public class SysDeptController {
     @RequestMapping("/update.json")
     public JsonData update(DeptParam deptParam) {
         sysDeptService.update(deptParam);
+        return JsonData.success();
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/delete.json")
+    public JsonData delete(@RequestParam("id") int id) {
+        sysDeptService.delete(id);
         return JsonData.success();
     }
 

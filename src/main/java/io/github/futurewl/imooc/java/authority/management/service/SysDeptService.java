@@ -3,6 +3,7 @@ package io.github.futurewl.imooc.java.authority.management.service;
 import com.google.common.base.Preconditions;
 import io.github.futurewl.imooc.java.authority.management.common.RequestHolder;
 import io.github.futurewl.imooc.java.authority.management.dao.SysDeptMapper;
+import io.github.futurewl.imooc.java.authority.management.dao.SysUserMapper;
 import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
 import io.github.futurewl.imooc.java.authority.management.model.SysDept;
 import io.github.futurewl.imooc.java.authority.management.param.DeptParam;
@@ -28,6 +29,9 @@ public class SysDeptService {
 
     @Resource
     private SysDeptMapper sysDeptMapper;
+
+    @Resource
+    private SysUserMapper sysUserMapper;
 
     /**
      * 保存部门
@@ -142,6 +146,18 @@ public class SysDeptService {
             return null;
         }
         return dept.getLevel();
+    }
+
+    public void delete(int deptId) {
+        SysDept dept = sysDeptMapper.selectByPrimaryKey(deptId);
+        Preconditions.checkNotNull(dept, "待删除的部门不存在，无法删除");
+        if (sysDeptMapper.countByParentId(dept.getId()) > 0) {
+            throw new ParamException("当前部门下面有子部门，无法删除");
+        }
+        if (sysUserMapper.countByDeptId(dept.getId()) > 0) {
+            throw new ParamException("当前部门下面有用户，无法删除");
+        }
+        sysDeptMapper.deleteByPrimaryKey(deptId);
     }
 
 }

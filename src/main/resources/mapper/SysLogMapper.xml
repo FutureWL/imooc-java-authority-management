@@ -10,8 +10,8 @@
     <result column="operator_time" property="operatorTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="io.github.futurewl.imooc.java.authority.management.model.SysLogWithBLOBs" extends="BaseResultMap" >
-    <result column="oldValue" property="oldvalue" jdbcType="LONGVARCHAR" />
-    <result column="newValue" property="newvalue" jdbcType="LONGVARCHAR" />
+    <result column="oldValue" property="oldValue" jdbcType="LONGVARCHAR" />
+    <result column="newValue" property="newValue" jdbcType="LONGVARCHAR" />
     <result column="operator_ip" property="operatorIp" jdbcType="VARBINARY" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -39,7 +39,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{targetId,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, #{operatorTime,jdbcType=TIMESTAMP}, 
-      #{oldvalue,jdbcType=LONGVARCHAR}, #{newvalue,jdbcType=LONGVARCHAR}, #{operatorIp,jdbcType=VARBINARY}
+      #{oldValue,jdbcType=LONGVARCHAR}, #{newValue,jdbcType=LONGVARCHAR}, #{operatorIp,jdbcType=VARBINARY}
       )
   </insert>
   <insert id="insertSelective" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysLogWithBLOBs" >
@@ -63,10 +63,10 @@
       <if test="operatorTime != null" >
         operator_time,
       </if>
-      <if test="oldvalue != null" >
+      <if test="oldValue != null" >
         oldValue,
       </if>
-      <if test="newvalue != null" >
+      <if test="newValue != null" >
         newValue,
       </if>
       <if test="operatorIp != null" >
@@ -92,11 +92,11 @@
       <if test="operatorTime != null" >
         #{operatorTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="oldvalue != null" >
-        #{oldvalue,jdbcType=LONGVARCHAR},
+      <if test="oldValue != null" >
+        #{oldValue,jdbcType=LONGVARCHAR},
       </if>
-      <if test="newvalue != null" >
-        #{newvalue,jdbcType=LONGVARCHAR},
+      <if test="newValue != null" >
+        #{newValue,jdbcType=LONGVARCHAR},
       </if>
       <if test="operatorIp != null" >
         #{operatorIp,jdbcType=VARBINARY},
@@ -121,11 +121,11 @@
       <if test="operatorTime != null" >
         operator_time = #{operatorTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="oldvalue != null" >
-        oldValue = #{oldvalue,jdbcType=LONGVARCHAR},
+      <if test="oldValue != null" >
+        oldValue = #{oldValue,jdbcType=LONGVARCHAR},
       </if>
-      <if test="newvalue != null" >
-        newValue = #{newvalue,jdbcType=LONGVARCHAR},
+      <if test="newValue != null" >
+        newValue = #{newValue,jdbcType=LONGVARCHAR},
       </if>
       <if test="operatorIp != null" >
         operator_ip = #{operatorIp,jdbcType=VARBINARY},
@@ -140,8 +140,8 @@
       status = #{status,jdbcType=INTEGER},
       operator = #{operator,jdbcType=VARCHAR},
       operator_time = #{operatorTime,jdbcType=TIMESTAMP},
-      oldValue = #{oldvalue,jdbcType=LONGVARCHAR},
-      newValue = #{newvalue,jdbcType=LONGVARCHAR},
+      oldValue = #{oldValue,jdbcType=LONGVARCHAR},
+      newValue = #{newValue,jdbcType=LONGVARCHAR},
       operator_ip = #{operatorIp,jdbcType=VARBINARY}
     where id = #{id,jdbcType=INTEGER}
   </update>

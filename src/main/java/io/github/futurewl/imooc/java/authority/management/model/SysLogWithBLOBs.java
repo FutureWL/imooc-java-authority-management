@@ -1,23 +1,23 @@
 package io.github.futurewl.imooc.java.authority.management.model;
 
 public class SysLogWithBLOBs extends SysLog {
-    private String oldvalue;
+    private String oldValue;
 
-    private String newvalue;
+    private String newValue;
 
-    public String getOldvalue() {
-        return oldvalue;
+    public String getOldValue() {
+        return oldValue;
     }
 
-    public void setOldvalue(String oldvalue) {
-        this.oldvalue = oldvalue == null ? null : oldvalue.trim();
+    public void setOldValue(String oldValue) {
+        this.oldValue = oldValue == null ? null : oldValue.trim();
     }
 
-    public String getNewvalue() {
-        return newvalue;
+    public String getNewValue() {
+        return newValue;
     }
 
-    public void setNewvalue(String newvalue) {
-        this.newvalue = newvalue == null ? null : newvalue.trim();
+    public void setNewValue(String newValue) {
+        this.newValue = newValue == null ? null : newValue.trim();
     }
 }

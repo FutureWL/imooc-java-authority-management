@@ -1,19 +1,25 @@
 package io.github.futurewl.imooc.java.authority.management.service;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import io.github.futurewl.imooc.java.authority.management.common.RequestHolder;
+import io.github.futurewl.imooc.java.authority.management.dao.SysRoleAclMapper;
 import io.github.futurewl.imooc.java.authority.management.dao.SysRoleMapper;
+import io.github.futurewl.imooc.java.authority.management.dao.SysRoleUserMapper;
+import io.github.futurewl.imooc.java.authority.management.dao.SysUserMapper;
 import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
-import io.github.futurewl.imooc.java.authority.management.model.SysAcl;
 import io.github.futurewl.imooc.java.authority.management.model.SysRole;
+import io.github.futurewl.imooc.java.authority.management.model.SysUser;
 import io.github.futurewl.imooc.java.authority.management.param.RoleParam;
 import io.github.futurewl.imooc.java.authority.management.util.BeanValidator;
 import io.github.futurewl.imooc.java.authority.management.util.IpUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 功能描述：
@@ -25,7 +31,16 @@ import java.util.List;
 public class SysRoleService {
 
     @Resource
+    private SysUserMapper sysUserMapper;
+
+    @Resource
     private SysRoleMapper sysRoleMapper;
+
+    @Resource
+    private SysRoleUserMapper sysRoleUserMapper;
+
+    @Resource
+    private SysRoleAclMapper sysRoleAclMapper;
 
     public void save(RoleParam param) {
         BeanValidator.check(param);
@@ -76,5 +91,31 @@ public class SysRoleService {
         return sysRoleMapper.getAll();
     }
 
+    public List<SysRole> getRoleListByUserId(int userId) {
+        List<Integer> roleIdList = sysRoleUserMapper.getRoleIdListByUserId(userId);
+        if (CollectionUtils.isEmpty(roleIdList)) {
+            return Lists.newArrayList();
+        }
+        return sysRoleMapper.getByIdList(roleIdList);
+    }
 
+    public List<SysRole> getRoleListByAclId(int aclId) {
+        List<Integer> roleIdList = sysRoleAclMapper.getRoleIdListByAclId(aclId);
+        if (CollectionUtils.isEmpty(roleIdList)) {
+            return Lists.newArrayList();
+        }
+        return sysRoleMapper.getByIdList(roleIdList);
+    }
+
+    public List<SysUser> getUserListByRoleList(List<SysRole> roleList) {
+        if (CollectionUtils.isEmpty(roleList)) {
+            return Lists.newArrayList();
+        }
+        List<Integer> roleIdList = roleList.stream().map(role -> role.getId()).collect(Collectors.toList());
+        List<Integer> userIdList = sysRoleUserMapper.getUserIdListByRoleIdList(roleIdList);
+        if (CollectionUtils.isEmpty(userIdList)) {
+            return Lists.newArrayList();
+        }
+        return sysUserMapper.getByIdList(userIdList);
+    }
 }

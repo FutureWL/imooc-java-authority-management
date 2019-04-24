@@ -48,6 +48,18 @@ public class SysTreeService {
     private Comparator<AclModuleLevelDto> aclModuleLevelDtoComparator = Comparator.comparingInt(SysAclModule::getSeq);
     private Comparator<AclDto> aclSeqComparator = Comparator.comparingInt(SysAcl::getSeq);
 
+    public List<AclModuleLevelDto> userAclTree(int userId) {
+        List<SysAcl> userAclList = sysCoreService.getUserAclList(userId);
+        List<AclDto> aclDtoList = Lists.newArrayList();
+        for (SysAcl acl : userAclList) {
+            AclDto dto = AclDto.adapt(acl);
+            dto.setHasAcl(true);
+            dto.setChecked(true);
+            aclDtoList.add(dto);
+        }
+        return aclListToTree(aclDtoList);
+    }
+
     /**
      * 获取所有的权限模块树结构
      *
