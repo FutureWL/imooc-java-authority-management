@@ -235,7 +235,7 @@
                     if (result.ret) {
                         deptList = result.data;
                         var rendered = Mustache.render(deptListTemplate, {deptList: result.data});
-                        $("#deptList").html(rendered);
+                        $("#aclModuleLevelDtoList").html(rendered);
                         recursiveRenderDept(result.data);
                         bindDeptClick();
                     } else {

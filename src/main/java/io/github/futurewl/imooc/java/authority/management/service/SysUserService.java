@@ -9,10 +9,7 @@ import io.github.futurewl.imooc.java.authority.management.dao.SysUserMapper;
 import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
 import io.github.futurewl.imooc.java.authority.management.model.SysUser;
 import io.github.futurewl.imooc.java.authority.management.param.UserParam;
-import io.github.futurewl.imooc.java.authority.management.util.BeanValidator;
-import io.github.futurewl.imooc.java.authority.management.util.IpUtil;
-import io.github.futurewl.imooc.java.authority.management.util.MD5Util;
-import io.github.futurewl.imooc.java.authority.management.util.MailUtil;
+import io.github.futurewl.imooc.java.authority.management.util.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -40,8 +37,8 @@ public class SysUserService {
         if (checkEmailExist(userParam.getMail(), userParam.getId())) {
             throw new ParamException("邮箱已被占用");
         }
-//        String password = PasswordUtil.randomPassword();
-        String password = "123456";
+        String password = PasswordUtil.randomPassword();
+//        String password = "123456";
         String encryptedPassword = MD5Util.encrypt(password);
         SysUser user = SysUser
                 .builder()

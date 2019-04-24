@@ -21,6 +21,8 @@ public interface SysAclModuleMapper {
 
     int updateByPrimaryKey(SysAclModule record);
 
+    List<SysAclModule> getAllAclModule();
+
     /**
      * 通过层级，获取所有子权限模块
      *
@@ -30,7 +32,6 @@ public interface SysAclModuleMapper {
     List<SysAclModule> getChildAclModuleListByLevel(@Param("level") String level);
 
     void batchUpdateLevel(@Param("sysAclModuleList") List<SysAclModule> sysAclModules);
-
 
     int countByNameAndParentId(@Param("parentId") Integer parentId, @Param("name") String name, @Param("id") Integer id);
 }

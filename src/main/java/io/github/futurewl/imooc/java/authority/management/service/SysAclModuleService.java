@@ -123,7 +123,7 @@ public class SysAclModuleService {
             }
         }
         // 更新新的权限模块关联
-        sysAclModuleMapper.updateByPrimaryKey(after);
+        sysAclModuleMapper.updateByPrimaryKeySelective(after);
     }
 
     /**

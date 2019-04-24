@@ -8,7 +8,7 @@ import java.security.MessageDigest;
 public class MD5Util {
 
     public final static String encrypt(String s) {
-        char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
         try {
             byte[] btInput = s.getBytes();
             // 获得MD5摘要算法的 MessageDigest 对象
@@ -31,5 +31,9 @@ public class MD5Util {
             log.error("generate md5 error, {}", s, e);
             return null;
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(encrypt("123456"));
     }
 }
