@@ -33,8 +33,8 @@ public class AclParam {
     private String url;
 
     @NotNull(message = "必须指定权限点类型")
-    @Min(value = 0, message = "权限点类型不合法")
-    @Max(value = 2, message = "权限点类型不合法")
+    @Min(value = 1, message = "权限点类型不合法")
+    @Max(value = 3, message = "权限点类型不合法")
     private Integer type;
 
     @NotNull(message = "必须指定权限点状态")

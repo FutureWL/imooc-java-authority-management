@@ -42,6 +42,8 @@ public class SysAclService {
                 .name(param.getName())
                 .aclModuleId(param.getAclModuleId())
                 .seq(param.getSeq())
+                .url(param.getUrl())
+                .type(param.getType())
                 .remark(param.getRemark())
                 .build();
         acl.setCode(generateCode());
@@ -68,6 +70,8 @@ public class SysAclService {
                 .name(param.getName())
                 .aclModuleId(param.getAclModuleId())
                 .seq(param.getSeq())
+                .url(param.getUrl())
+                .type(param.getType())
                 .remark(param.getRemark())
                 .build();
         after.setOperator(RequestHolder.getCurrentUser().getUsername());

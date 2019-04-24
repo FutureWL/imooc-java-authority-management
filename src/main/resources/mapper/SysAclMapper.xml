@@ -12,8 +12,8 @@
     <result column="seq" property="seq" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="operator" property="operator" jdbcType="VARCHAR" />
-    <result column="operator_time" property="operateTime" jdbcType="TIMESTAMP" />
-    <result column="operator_ip" property="operateIp" jdbcType="VARCHAR" />
+    <result column="operator_time" property="operatorTime" jdbcType="TIMESTAMP" />
+    <result column="operator_ip" property="operatorIp" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, code, name, acl_module_id, url, type, status, seq, remark, operator, operator_time,
@@ -38,7 +38,7 @@
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{aclModuleId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
-      #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR}
+      #{operator,jdbcType=VARCHAR}, #{operatorTime,jdbcType=TIMESTAMP}, #{operatorIp,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysAcl" keyProperty="id" useGeneratedKeys="true">
@@ -74,10 +74,10 @@
       <if test="operator != null" >
         operator,
       </if>
-      <if test="operateTime != null" >
+      <if test="operatorTime != null" >
         operator_time,
       </if>
-      <if test="operateIp != null" >
+      <if test="operatorIp != null" >
         operator_ip,
       </if>
     </trim>
@@ -112,11 +112,11 @@
       <if test="operator != null" >
         #{operator,jdbcType=VARCHAR},
       </if>
-      <if test="operateTime != null" >
-        #{operateTime,jdbcType=TIMESTAMP},
+      <if test="operatorTime != null" >
+        #{operatorTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="operateIp != null" >
-        #{operateIp,jdbcType=VARCHAR},
+      <if test="operatorIp != null" >
+        #{operatorIp,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -150,11 +150,11 @@
       <if test="operator != null" >
         operator = #{operator,jdbcType=VARCHAR},
       </if>
-      <if test="operateTime != null" >
-        operator_time = #{operateTime,jdbcType=TIMESTAMP},
+      <if test="operatorTime != null" >
+        operator_time = #{operatorTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="operateIp != null" >
-        operator_ip = #{operateIp,jdbcType=VARCHAR},
+      <if test="operatorIp != null" >
+        operator_ip = #{operatorIp,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -170,8 +170,8 @@
       seq = #{seq,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=VARCHAR},
-      operator_time = #{operateTime,jdbcType=TIMESTAMP},
-      operator_ip = #{operateIp,jdbcType=VARCHAR}
+      operator_time = #{operatorTime,jdbcType=TIMESTAMP},
+      operator_ip = #{operatorIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

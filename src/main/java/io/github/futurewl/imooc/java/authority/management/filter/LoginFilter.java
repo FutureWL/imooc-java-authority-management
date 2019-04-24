@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 功能描述：
+ * 功能描述：登录拦截器
  *
  * @author weilai create by 2019-04-23:09:43
  * @version 1.0
