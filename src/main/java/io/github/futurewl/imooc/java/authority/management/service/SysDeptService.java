@@ -33,6 +33,9 @@ public class SysDeptService {
     @Resource
     private SysUserMapper sysUserMapper;
 
+    @Resource
+    private SysLogService sysLogService;
+
     /**
      * 保存部门
      *
@@ -55,6 +58,7 @@ public class SysDeptService {
         dept.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         dept.setOperatorTime(new Date());
         sysDeptMapper.insertSelective(dept);
+        sysLogService.saveDeptLog(null, dept);
     }
 
     /**
@@ -82,12 +86,11 @@ public class SysDeptService {
                 .build();
 
         after.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
-        // todo
         after.setOperator(RequestHolder.getCurrentUser().getUsername());
-        // todo
         after.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperatorTime(new Date());
         updateWithChild(before, after);
+        sysLogService.saveDeptLog(before, after);
     }
 
     /**

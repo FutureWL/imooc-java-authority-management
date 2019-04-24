@@ -178,7 +178,7 @@ public class SysLogService {
         return PageResult.<SysLogWithBLOBs>builder().build();
     }
 
-    private void saveDeptLog(SysDept before, SysDept after) {
+    public void saveDeptLog(SysDept before, SysDept after) {
         SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
         sysLog.setType(LogType.TYPE_DEPT);
         sysLog.setTargetId(after == null ? before.getId() : after.getId());
@@ -191,7 +191,7 @@ public class SysLogService {
         sysLogMapper.insertSelective(sysLog);
     }
 
-    private void saveUserLog(SysUser before, SysUser after) {
+    public void saveUserLog(SysUser before, SysUser after) {
         SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
         sysLog.setType(LogType.TYPE_USER);
         sysLog.setTargetId(after == null ? before.getId() : after.getId());
@@ -204,7 +204,7 @@ public class SysLogService {
         sysLogMapper.insertSelective(sysLog);
     }
 
-    private void saveAclModuleLog(SysAclModule before, SysAclModule after) {
+    public void saveAclModuleLog(SysAclModule before, SysAclModule after) {
         SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
         sysLog.setType(LogType.TYPE_ACL_MODULE);
         sysLog.setTargetId(after == null ? before.getId() : after.getId());
@@ -217,7 +217,7 @@ public class SysLogService {
         sysLogMapper.insertSelective(sysLog);
     }
 
-    private void saveAclLog(SysAcl before, SysAcl after) {
+    public void saveAclLog(SysAcl before, SysAcl after) {
         SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
         sysLog.setType(LogType.TYPE_ACL);
         sysLog.setTargetId(after == null ? before.getId() : after.getId());
@@ -230,7 +230,7 @@ public class SysLogService {
         sysLogMapper.insertSelective(sysLog);
     }
 
-    private void saveRoleLog(SysRole before, SysRole after) {
+    public void saveRoleLog(SysRole before, SysRole after) {
         SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
         sysLog.setType(LogType.TYPE_ROLE);
         sysLog.setTargetId(after == null ? before.getId() : after.getId());

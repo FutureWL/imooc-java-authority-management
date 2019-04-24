@@ -44,6 +44,9 @@ public class SysTreeService {
     @Resource
     private SysAclMapper sysAclMapper;
 
+    @Resource
+    private SysLogService sysLogService;
+
     private Comparator<DeptLevelDto> deptSeqComparator = Comparator.comparingInt(SysDept::getSeq);
     private Comparator<AclModuleLevelDto> aclModuleLevelDtoComparator = Comparator.comparingInt(SysAclModule::getSeq);
     private Comparator<AclDto> aclSeqComparator = Comparator.comparingInt(SysAcl::getSeq);
@@ -114,11 +117,7 @@ public class SysTreeService {
      * @param level
      * @param levelDtoMultimap
      */
-    private void transformAclModuleTree(
-            List<AclModuleLevelDto> aclModuleLevelDtoList,
-            String level,
-            Multimap<String, AclModuleLevelDto> levelDtoMultimap
-    ) {
+    private void transformAclModuleTree(List<AclModuleLevelDto> aclModuleLevelDtoList, String level, Multimap<String, AclModuleLevelDto> levelDtoMultimap) {
         // 遍历该层的每个元素
         for (AclModuleLevelDto deaclModuleLevelDtotLevelDto : aclModuleLevelDtoList) {
             // 处理当前层级的数据
@@ -190,11 +189,7 @@ public class SysTreeService {
      * @param level
      * @param levelDtoMultimap
      */
-    private void transformDeptTree(
-            List<DeptLevelDto> deptLevelDtoList,
-            String level,
-            Multimap<String, DeptLevelDto> levelDtoMultimap
-    ) {
+    private void transformDeptTree(List<DeptLevelDto> deptLevelDtoList, String level, Multimap<String, DeptLevelDto> levelDtoMultimap) {
         // 遍历该层的每个元素
         for (DeptLevelDto deptLevelDto : deptLevelDtoList) {
             // 处理当前层级的数据

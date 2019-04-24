@@ -29,6 +29,9 @@ public class SysAclService {
     @Resource
     private SysAclMapper sysAclMapper;
 
+    @Resource
+    private SysLogService sysLogService;
+
     public void save(AclParam param) {
         BeanValidator.check(param);
         if (checkExist(param.getAclModuleId(), param.getName(), param.getId())) {
@@ -46,6 +49,7 @@ public class SysAclService {
         acl.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         acl.setOperatorTime(new Date());
         sysAclMapper.insertSelective(acl);
+        sysLogService.saveAclLog(null, acl);
     }
 
     public void update(AclParam param) {
@@ -70,6 +74,7 @@ public class SysAclService {
         after.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperatorTime(new Date());
         sysAclMapper.updateByPrimaryKeySelective(after);
+        sysLogService.saveAclLog(before, after);
     }
 
     private boolean checkExist(Integer aclModuleId, String name, Integer id) {

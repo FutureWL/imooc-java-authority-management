@@ -5,20 +5,20 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="target_id" property="targetId" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="operator" property="operator" jdbcType="VARCHAR" />
-    <result column="operator_time" property="operatorTime" jdbcType="TIMESTAMP" />
+    <result column="operator_time" property="operateTime" jdbcType="TIMESTAMP" />
+    <result column="operator_ip" property="operateIp" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="io.github.futurewl.imooc.java.authority.management.model.SysLogWithBLOBs" extends="BaseResultMap" >
-    <result column="oldValue" property="oldValue" jdbcType="LONGVARCHAR" />
-    <result column="newValue" property="newValue" jdbcType="LONGVARCHAR" />
-    <result column="operator_ip" property="operatorIp" jdbcType="VARBINARY" />
+    <result column="old_value" property="oldValue" jdbcType="LONGVARCHAR" />
+    <result column="new_value" property="newValue" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, type, target_id, status, operator, operator_time
+    id, type, target_id, operator, operator_time, operator_ip, status
   </sql>
   <sql id="Blob_Column_List" >
-    oldValue, newValue, operator_ip
+    old_value, new_value
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -34,12 +34,12 @@
   </delete>
   <insert id="insert" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysLogWithBLOBs" >
     insert into sys_log (id, type, target_id, 
-      status, operator, operator_time, 
-      oldValue, newValue, operator_ip
+      operator, operator_time, operator_ip,
+      status, old_value, new_value
       )
     values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{targetId,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, #{operatorTime,jdbcType=TIMESTAMP}, 
-      #{oldValue,jdbcType=LONGVARCHAR}, #{newValue,jdbcType=LONGVARCHAR}, #{operatorIp,jdbcType=VARBINARY}
+      #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{oldValue,jdbcType=LONGVARCHAR}, #{newValue,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysLogWithBLOBs" >
@@ -54,23 +54,23 @@
       <if test="targetId != null" >
         target_id,
       </if>
-      <if test="status != null" >
-        status,
-      </if>
       <if test="operator != null" >
         operator,
       </if>
-      <if test="operatorTime != null" >
+      <if test="operateTime != null" >
         operator_time,
       </if>
+      <if test="operateIp != null" >
+        operator_ip,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
       <if test="oldValue != null" >
-        oldValue,
+        old_value,
       </if>
       <if test="newValue != null" >
-        newValue,
-      </if>
-      <if test="operatorIp != null" >
-        operator_ip,
+        new_value,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -83,23 +83,23 @@
       <if test="targetId != null" >
         #{targetId,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
       <if test="operator != null" >
         #{operator,jdbcType=VARCHAR},
       </if>
-      <if test="operatorTime != null" >
-        #{operatorTime,jdbcType=TIMESTAMP},
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateIp != null" >
+        #{operateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="oldValue != null" >
         #{oldValue,jdbcType=LONGVARCHAR},
       </if>
       <if test="newValue != null" >
         #{newValue,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="operatorIp != null" >
-        #{operatorIp,jdbcType=VARBINARY},
       </if>
     </trim>
   </insert>
@@ -112,23 +112,23 @@
       <if test="targetId != null" >
         target_id = #{targetId,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
       <if test="operator != null" >
         operator = #{operator,jdbcType=VARCHAR},
       </if>
-      <if test="operatorTime != null" >
-        operator_time = #{operatorTime,jdbcType=TIMESTAMP},
+      <if test="operateTime != null" >
+        operator_time = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateIp != null" >
+        operator_ip = #{operateIp,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="oldValue != null" >
-        oldValue = #{oldValue,jdbcType=LONGVARCHAR},
+        old_value = #{oldValue,jdbcType=LONGVARCHAR},
       </if>
       <if test="newValue != null" >
-        newValue = #{newValue,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="operatorIp != null" >
-        operator_ip = #{operatorIp,jdbcType=VARBINARY},
+        new_value = #{newValue,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -137,21 +137,59 @@
     update sys_log
     set type = #{type,jdbcType=INTEGER},
       target_id = #{targetId,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
       operator = #{operator,jdbcType=VARCHAR},
-      operator_time = #{operatorTime,jdbcType=TIMESTAMP},
-      oldValue = #{oldValue,jdbcType=LONGVARCHAR},
-      newValue = #{newValue,jdbcType=LONGVARCHAR},
-      operator_ip = #{operatorIp,jdbcType=VARBINARY}
+      operator_time = #{operateTime,jdbcType=TIMESTAMP},
+      operator_ip = #{operateIp,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      old_value = #{oldValue,jdbcType=LONGVARCHAR},
+      new_value = #{newValue,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="io.github.futurewl.imooc.java.authority.management.model.SysLog" >
     update sys_log
     set type = #{type,jdbcType=INTEGER},
       target_id = #{targetId,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
       operator = #{operator,jdbcType=VARCHAR},
-      operator_time = #{operatorTime,jdbcType=TIMESTAMP}
+      operator_time = #{operateTime,jdbcType=TIMESTAMP},
+      operator_ip = #{operateIp,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="countBySearchDto" parameterType="map" resultType="int">
+    SELECT count(1)
+    FROM sys_log
+    <include refid="queryConditions" />
+  </select>
+
+  <select id="getPageListBySearchDto" parameterType="map" resultMap="ResultMapWithBLOBs">
+    SELECT <include refid="Base_Column_List" />,<include refid="Blob_Column_List" />
+    FROM sys_log
+    <include refid="queryConditions" />
+    ORDER BY operator_time DESC
+    limit #{page.offset}, #{page.pageSize}
+  </select>
+
+  <sql id="queryConditions">
+    <where>
+      <if test="dto.type != null">
+        AND type = #{dto.type}
+      </if>
+      <if test="dto.beforeSeg != null and dto.beforeSeg != ''">
+        AND old_value like #{dto.beforeSeg}
+      </if>
+      <if test="dto.afterSeg != null and dto.afterSeg != ''">
+        AND new_value like #{dto.afterSeg}
+      </if>
+      <if test="dto.operator != null and dto.operator != ''">
+        AND operator like #{dto.operator}
+      </if>
+      <if test="dto.fromTime != null">
+        AND operator_time &gt;= #{dto.fromTime}
+      </if>
+      <if test="dto.toTime != null">
+        AND operator_time &lt;= #{dto.toTime}
+      </if>
+    </where>
+  </sql>
 </mapper>

@@ -29,6 +29,9 @@ public class SysUserService {
     @Resource
     private SysUserMapper sysUserMapper;
 
+    @Resource
+    private SysLogService sysLogService;
+
     public void save(UserParam userParam) {
         BeanValidator.check(userParam);
         if (checkTelephoneExist(userParam.getTelephone(), userParam.getId())) {
@@ -55,6 +58,7 @@ public class SysUserService {
         user.setOperatorTime(new Date());
         MailUtil.send(new Mail("您的密码", password, Collections.singleton(userParam.getMail())));
         sysUserMapper.insertSelective(user);
+        sysLogService.saveUserLog(null, user);
 
     }
 
@@ -79,6 +83,7 @@ public class SysUserService {
                 .remark(param.getRemark())
                 .build();
         sysUserMapper.updateByPrimaryKeySelective(after);
+        sysLogService.saveUserLog(before, after);
     }
 
     private boolean checkEmailExist(String mail, Integer userId) {

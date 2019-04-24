@@ -3,10 +3,7 @@ package io.github.futurewl.imooc.java.authority.management.service;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import io.github.futurewl.imooc.java.authority.management.common.RequestHolder;
-import io.github.futurewl.imooc.java.authority.management.dao.SysRoleAclMapper;
-import io.github.futurewl.imooc.java.authority.management.dao.SysRoleMapper;
-import io.github.futurewl.imooc.java.authority.management.dao.SysRoleUserMapper;
-import io.github.futurewl.imooc.java.authority.management.dao.SysUserMapper;
+import io.github.futurewl.imooc.java.authority.management.dao.*;
 import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
 import io.github.futurewl.imooc.java.authority.management.model.SysRole;
 import io.github.futurewl.imooc.java.authority.management.model.SysUser;
@@ -42,6 +39,9 @@ public class SysRoleService {
     @Resource
     private SysRoleAclMapper sysRoleAclMapper;
 
+    @Resource
+    private SysLogService sysLogService;
+
     public void save(RoleParam param) {
         BeanValidator.check(param);
         if (checkExist(param.getName(), param.getId())) {
@@ -57,6 +57,7 @@ public class SysRoleService {
         role.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         role.setOperatorTime(new Date());
         sysRoleMapper.insertSelective(role);
+        sysLogService.saveRoleLog(null, role);
     }
 
     public void update(RoleParam param) {
@@ -81,6 +82,7 @@ public class SysRoleService {
         after.setOperatorIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperatorTime(new Date());
         sysRoleMapper.updateByPrimaryKeySelective(after);
+        sysLogService.saveRoleLog(before, after);
     }
 
     private boolean checkExist(String name, Integer id) {
