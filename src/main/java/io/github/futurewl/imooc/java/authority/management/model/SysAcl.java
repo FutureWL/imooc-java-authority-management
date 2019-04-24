@@ -18,7 +18,7 @@ public class SysAcl {
 
     private String name;
 
-    private Integer arlModuleId;
+    private Integer aclModuleId;
 
     private String url;
 
@@ -60,12 +60,12 @@ public class SysAcl {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getArlModuleId() {
-        return arlModuleId;
+    public Integer getAclModuleId() {
+        return aclModuleId;
     }
 
-    public void setArlModuleId(Integer arlModuleId) {
-        this.arlModuleId = arlModuleId;
+    public void setAclModuleId(Integer aclModuleId) {
+        this.aclModuleId = aclModuleId;
     }
 
     public String getUrl() {

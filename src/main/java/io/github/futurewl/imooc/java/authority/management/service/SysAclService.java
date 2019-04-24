@@ -37,7 +37,7 @@ public class SysAclService {
         SysAcl acl = SysAcl
                 .builder()
                 .name(param.getName())
-                .arlModuleId(param.getAclModuleId())
+                .aclModuleId(param.getAclModuleId())
                 .seq(param.getSeq())
                 .remark(param.getRemark())
                 .build();
@@ -62,7 +62,7 @@ public class SysAclService {
                 .builder()
                 .id(param.getId())
                 .name(param.getName())
-                .arlModuleId(param.getAclModuleId())
+                .aclModuleId(param.getAclModuleId())
                 .seq(param.getSeq())
                 .remark(param.getRemark())
                 .build();
