@@ -7,15 +7,10 @@ import io.github.futurewl.imooc.java.authority.management.common.RequestHolder;
 import io.github.futurewl.imooc.java.authority.management.dao.SysAclMapper;
 import io.github.futurewl.imooc.java.authority.management.exception.ParamException;
 import io.github.futurewl.imooc.java.authority.management.model.SysAcl;
-import io.github.futurewl.imooc.java.authority.management.model.SysAclModule;
-import io.github.futurewl.imooc.java.authority.management.model.SysDept;
 import io.github.futurewl.imooc.java.authority.management.param.AclParam;
 import io.github.futurewl.imooc.java.authority.management.util.BeanValidator;
 import io.github.futurewl.imooc.java.authority.management.util.IpUtil;
-import io.github.futurewl.imooc.java.authority.management.util.LevelUtil;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -36,13 +31,13 @@ public class SysAclService {
 
     public void save(AclParam param) {
         BeanValidator.check(param);
-        if (checkExist(param.getArlModuleId(), param.getName(), param.getId())) {
+        if (checkExist(param.getAclModuleId(), param.getName(), param.getId())) {
             throw new ParamException("同层级下存在相同名称的权限点");
         }
         SysAcl acl = SysAcl
                 .builder()
                 .name(param.getName())
-                .arlModuleId(param.getArlModuleId())
+                .arlModuleId(param.getAclModuleId())
                 .seq(param.getSeq())
                 .remark(param.getRemark())
                 .build();
@@ -55,19 +50,19 @@ public class SysAclService {
 
     public void update(AclParam param) {
         BeanValidator.check(param);
-        if (checkExist(param.getArlModuleId(), param.getName(), param.getId())) {
+        if (checkExist(param.getAclModuleId(), param.getName(), param.getId())) {
             throw new ParamException("同一层级下存在相同名称的权限点");
         }
         SysAcl before = sysAclMapper.selectByPrimaryKey(param.getId());
         Preconditions.checkNotNull(before, "待更新权限点不存在");
-        if (checkExist(param.getArlModuleId(), param.getName(), param.getId())) {
+        if (checkExist(param.getAclModuleId(), param.getName(), param.getId())) {
             throw new ParamException("同一层级下存在相同名称的权限点");
         }
         SysAcl after = SysAcl
                 .builder()
                 .id(param.getId())
                 .name(param.getName())
-                .arlModuleId(param.getArlModuleId())
+                .arlModuleId(param.getAclModuleId())
                 .seq(param.getSeq())
                 .remark(param.getRemark())
                 .build();

@@ -2,6 +2,7 @@ package io.github.futurewl.imooc.java.authority.management.controller;
 
 import io.github.futurewl.imooc.java.authority.management.beans.PageQuery;
 import io.github.futurewl.imooc.java.authority.management.common.JsonData;
+import io.github.futurewl.imooc.java.authority.management.param.AclParam;
 import io.github.futurewl.imooc.java.authority.management.service.SysAclService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -24,6 +25,20 @@ public class SysAclController {
 
     @Resource
     private SysAclService sysAclService;
+
+    @RequestMapping("/save.json")
+    @ResponseBody
+    public JsonData saveAclModule(AclParam param) {
+        sysAclService.save(param);
+        return JsonData.success();
+    }
+
+    @RequestMapping("/update.json")
+    @ResponseBody
+    public JsonData updateAclModule(AclParam param) {
+        sysAclService.update(param);
+        return JsonData.success();
+    }
 
     @ResponseBody
     @RequestMapping("/page.json")
