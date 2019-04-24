@@ -94,7 +94,6 @@ public class SysDeptService {
      */
     @Transactional
     private void updateWithChild(SysDept before, SysDept after) {
-
         String newLevelPrefix = after.getLevel();
         String oldLevelPrefix = before.getLevel();
         // 如果层级不变

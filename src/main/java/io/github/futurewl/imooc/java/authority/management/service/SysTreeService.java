@@ -104,7 +104,7 @@ public class SysTreeService {
                 // 排序
                 tempAclModuleList.sort(aclModuleLevelDtoComparator);
                 // 设置下一层部门
-                deaclModuleLevelDtotLevelDto.setAclModuleLevelDtoList(tempAclModuleList);
+                deaclModuleLevelDtotLevelDto.setAclModuleList(tempAclModuleList);
                 // 进入到下一层处理
                 transformAclModuleTree(tempAclModuleList, nextLevel, levelDtoMultimap);
             }

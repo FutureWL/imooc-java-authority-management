@@ -285,6 +285,7 @@
                 }
             });
         });
+
         function updateAclModule(isCreate, successCallback, failCallback) {
             $.ajax({
                 url: isCreate ? "/sys/aclModule/save.json" : "/sys/aclModule/update.json",
